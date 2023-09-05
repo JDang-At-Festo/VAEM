@@ -10,6 +10,7 @@ __status__ = "Development"
 import logging
 from pymodbus.client.sync import ModbusTcpClient as TcpClient
 import struct
+import random
 
 from driver.dataTypes import VaemConfig
 from driver.vaemHelper import *
@@ -53,7 +54,10 @@ class vaemDriver():
         self._config = vaemConfig
         self._log = logger
         self._init_done = False
+        
+        print("Connected")
 
+        """
         self.client = TcpClient(host=self._config.ip, port=self._config.port)
 
         for _ in range(5):
@@ -69,6 +73,7 @@ class vaemDriver():
         self._log.info(f'Connected to VAEM : {self._config}')
         self._init_done = True
         self._vaem_init()
+        """
 
     def _vaem_init(self):
         data = {}
@@ -242,8 +247,10 @@ class vaemDriver():
         -> error: 1 if error in valves is present
         """
         data = {}
+        """
         if self._init_done:
             #save settings
+            
             data['access'] = VaemAccess.Read.value
             data['dataType'] = VaemDataType.UINT16.value
             data['paramIndex'] = VaemIndex.StatusWord.value
@@ -256,9 +263,19 @@ class vaemDriver():
             self._log.info(get_status(_deconstruct_frame(resp)['transferValue']))
 
             return get_status(_deconstruct_frame(resp)['transferValue'])
+            
+            
         else:
             self._log.warning("No VAEM Connected!!")
             return ""
+        """
+        data['access'] = random.randrange(100)
+        data['dataType'] = random.randrange(100)
+        data['paramIndex'] = random.randrange(100)
+        data['paramSubIndex'] = random.randrange(100)
+        data['errorRet'] = random.randrange(100)
+        data['transferValue'] = random.randrange(100)
+        return data
 
     async def clear_error(self):
         """

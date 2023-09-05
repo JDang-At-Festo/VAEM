@@ -11,8 +11,13 @@ if __name__ == "__main__":
 
     try:
         vaem = vaemDriver(vaemConfig, logger=logging)
+        status = vaem.read_status()
+        print(status)
     except Exception as e:
         print(e)
+
+    
+    """
     async def func():
         vaem.init()
         print(vaem.read_status())
@@ -27,3 +32,4 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(func())
+    """
