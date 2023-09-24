@@ -70,6 +70,29 @@ class VaemOperatingMode(IntEnum):
     OpMode2 = 0x01
     OpMode3 = 0x02
 
+def bw_and_shift(statusWord, register, shift:0):
+    return (statusWord & register) >> shift
+
+def vaem_translator_function(statusWord):
+    translator = {
+                    'StatusWord'    : statusWord,
+                    'decoder'       : bw_and_shift,
+                    'encoder'       : lambda x:x,
+                    'Status'        : (0x01, 0),
+                    'Error'         : (0x08, 3),
+                    'Readiness'     : (0x10, 4),
+                    'OperatingMode' : (0xC0, 6),
+                    'Valve1'        : (0x100, 8),
+                    'Valve2'        : (0x200, 9),
+                    'Valve3'        : (0x400, 10),
+                    'Valve4'        : (0x800, 11),
+                    'Valve5'        : (0x1000, 12),
+                    'Valve6'        : (0x2000, 13),
+                    'Valve7'        : (0x4000, 14),
+                    'Valve8'        : (0x8000, 15)
+                }
+    return translator
+
 def get_status(statusWord):
     status = {}
     status['Status'] = statusWord & 0x01
