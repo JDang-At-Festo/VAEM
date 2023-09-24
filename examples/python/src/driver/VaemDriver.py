@@ -8,7 +8,7 @@ __email__ = "milen.kolev@festo.com"
 __status__ = "Development"
 
 import logging
-from pymodbus.client.sync import ModbusTcpClient as TcpClient
+from pymodbus.client import ModbusTcpClient as TcpClient
 import struct
 import random
 
