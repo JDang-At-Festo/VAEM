@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import vaem_status_view
+from .views import VaemStatusView, CurrentStateView
 
 urlpatterns = [
-    path('api/', vaem_status_view.as_view())
+    path('api/', VaemStatusView.as_view()),
+    path('api/status/', CurrentStateView.as_view()),
 ]
