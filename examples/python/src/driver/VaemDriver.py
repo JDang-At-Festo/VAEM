@@ -274,7 +274,7 @@ class vaemDriver():
         data['paramIndex'] = random.randrange(100)
         data['paramSubIndex'] = random.randrange(100)
         data['errorRet'] = random.randrange(100)
-        data['transferValue'] = random.randrange(100)
+        data['transferValue'] = random.randrange(2**16-1)
         data['transferTranslator'] = vaem_translator_function(VaemIndex.StatusWord.value)
         return data
 
