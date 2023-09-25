@@ -1,0 +1,97 @@
+<!--This is where the boilerplate Festo background styling and content go-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="vaem" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VAEM Status{% endblock title %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Device Hub: VAEM</h1>
+    <div class="grid-container">
+        <ul>
+            <!-- There's an argument to be made here that this should be in the API layer, in a view -->
+            <li class="list-item">Error:   
+                {% if serializer.data|get_item:"error" %}
+                    Error!
+                {% else %}
+                    Normal
+                {% endif %}
+            </li>
+            <li class="list-item">Readiness:   
+                {% if serializer.data|get_item:"readiness" %}
+                    Ready
+                {% else %}
+                    Not Ready
+                {% endif %}
+            </li>
+            <li class="list-item">Operating Mode:   
+                {% if serializer.data|get_item:"operating_mode" %}
+                    Nominal
+                {% elif 0 %}
+                    Scheduled
+                {% else %}
+                    Await
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 1:   
+                {% if serializer.data|get_item:"valve1" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 2:   
+                {% if serializer.data|get_item:"valve2" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 3:   
+                {% if serializer.data|get_item:"valve3" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 4:   
+                {% if serializer.data|get_item:"valve4" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 5:   
+                {% if serializer.data|get_item:"valve5" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 6:   
+                {% if serializer.data|get_item:"valve6" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 7:   
+                {% if serializer.data|get_item:"valve7" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+            <li class="list-item">Valve 8:   
+                {% if serializer.data|get_item:"valve8" %}
+                    Closed
+                {% else %}
+                    Open
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

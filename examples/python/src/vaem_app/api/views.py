@@ -1,6 +1,9 @@
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import status
+from django.template import loader
 from django.shortcuts import render
 from .models import Status, VaemState
 from .serializer import StatusSerializer, VaemStateSerializer
@@ -36,8 +39,11 @@ class VaemStatusView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CurrentStateView(APIView):
+class CurrentStateView(GenericAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
+
     def get(self, request):
         vaem_state = VaemState.objects.latest('timestamp')
         serializer = VaemStateSerializer(vaem_state)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response({"serializer": serializer}, template_name='index.html', status=status.HTTP_200_OK)
