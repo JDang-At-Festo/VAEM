@@ -37,10 +37,10 @@ setup(
     python_requires='>=3.8, <4',
 
     install_requires=[  'pymodbus>=2.5.0',
-                        'pydantic>=1.8.2',
+                        #'pydantic>=1.8.2',
                         'typing>=3.7.4.3',
                         'python-multipart==0.0.5',
-                        'jsonschema'
+                        #'jsonschema'
     ],  # Optionals
 
     # data_files=[('config_schema', ['config/move_schema.json'])],  # Optional

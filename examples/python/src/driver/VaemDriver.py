@@ -8,7 +8,7 @@ __email__ = "milen.kolev@festo.com"
 __status__ = "Development"
 
 import logging
-from pymodbus.client.sync import ModbusTcpClient as TcpClient
+from pymodbus.client import ModbusTcpClient as TcpClient
 import struct
 import random
 
@@ -274,7 +274,8 @@ class vaemDriver():
         data['paramIndex'] = random.randrange(100)
         data['paramSubIndex'] = random.randrange(100)
         data['errorRet'] = random.randrange(100)
-        data['transferValue'] = random.randrange(100)
+        data['transferValue'] = random.randrange(2**16-1)
+        data['transferTranslator'] = vaem_translator_function(VaemIndex.StatusWord.value)
         return data
 
     async def clear_error(self):

@@ -17,9 +17,9 @@ if __name__ == "__main__":
         print(e)
 
     
-    """
+
     async def func():
-        vaem.init()
+        vaem._vaem_init()
         print(vaem.read_status())
         await vaem.select_valve(3)
         print(vaem.read_status())
@@ -32,4 +32,4 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(func())
-    """
+

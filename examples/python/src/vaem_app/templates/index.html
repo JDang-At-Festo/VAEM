@@ -1,0 +1,213 @@
+<!--This is where the boilerplate Festo background styling and content go-->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="vaem" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VAEM Status{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="logo-banner">
+       FESTO Automation Dashboard
+    </div>
+    <div class="container">
+        <div class="box-outer">
+            <h1>Device Hub: VAEM</h1>
+            <div class="container">
+                <div class="column">
+                    <div class="box">
+                        <h2>Connect</h2>
+                        <div class="dropdown">
+                            <label for="portName">Port Name:</label>
+                            <select id="portName">
+                                <option value="port1">ETH</option>
+                                <option value="port2">COM1</option>
+                            </select>
+                        </div>
+                        <button class="btn">Connect</button>
+                    </div>
+                    <div class="box">
+                        <h2>Control</h2>
+                        <button class="btn">Start</button>
+                        <button class="btn">Stop</button>
+                        <button class="btn">Reset Error</button>
+                        <button class="btn control-btn">Load default</button>
+                        <button class="btn control-btn">Save flash</button>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2>Valve Parameters</h2>
+                        <div class="valve-container">
+                            <div class="dropdown">
+                                <label for="valvePort">Valve Port:</label>
+                                <select id="valvePort">
+                                    <option value="valve1">Port 1</option>
+                                    <option value="valve2">Port 2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="entry-fields">
+                            <div class="input-field">
+                                <label for="connected">Connected:</label>
+                                <input type="text" id="connected" placeholder="Enter connected value">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">Rated Voltage(mV)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter rated voltage">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">Inrush Current(mA)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter inrush current">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">Holding Current(mA)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter holding current">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">T_inrush(*0.2ms)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter pickup time">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">T_tau(*0.2ms)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter current reduction time">
+                            </div>
+                            <div class="input-field">
+                                <label for="ratedVoltage">T_actuation(*0.2ms)</label>
+                                <input type="text" id="ratedVoltage" placeholder="Enter actuation time">
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn">Write</button>
+                            <button class="btn">Read</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2>Status Word</h2>
+                        <div class="checkbox-container">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="busy" class="toggle-checkbox" name="status" value="busy">
+                                <label for="busy">BUSY</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="reserved1" class="toggle-checkbox" name="status" value="reserved1">
+                                <label for="reserved1">Reserved</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="reserved2" class="toggle-checkbox" name="status" value="reserved2">
+                                <label for="reserved2">Reserved</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"error" %}
+                                    <input type="checkbox" id="fault" class="toggle-checkbox" name="status" value="fault" checked>
+                                {% else %}
+                                    <input type="checkbox" id="fault" class="toggle-checkbox" name="status" value="fault">
+                                {% endif %}
+                                <label for="fault">FAULT</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"readiness" %}
+                                    <input type="checkbox" id="ready" class="toggle-checkbox" name="status" value="ready" checked>
+                                {% else %}
+                                    <input type="checkbox" id="ready" class="toggle-checkbox" name="status" value="ready">
+                                {% endif %}
+                                <label for="ready">READY</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="reserved3" class="toggle-checkbox" name="status" value="reserved3">
+                                <label for="reserved3">Reserved</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"operating_mode" == 1 %}
+                                    <input type="checkbox" id="opmode1" class="toggle-checkbox" name="status" value="opmode1" checked>
+                                {% else %}
+                                <input type="checkbox" id="opmode1" class="toggle-checkbox" name="status" value="opmode1">
+                                {% endif %}
+                                <label for="opmode1">Op Mode 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"operating_mode" == 1 %}
+                                    <input type="checkbox" id="opmode2" class="toggle-checkbox" name="status" value="opmode2" checked>
+                                {% else %}
+                                    <input type="checkbox" id="opmode2" class="toggle-checkbox" name="status" value="opmode2">
+                                {% endif %}
+                                <label for="opmode2">Op Mode 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve1" %}
+                                    <input type="checkbox" id="valve1" class="toggle-checkbox" name="status" value="valve1" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve1" class="toggle-checkbox" name="status" value="valve1">
+                                {% endif %}
+                                <label for="valve1">Valve 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve2" %}
+                                    <input type="checkbox" id="valve2" class="toggle-checkbox" name="status" value="valve2" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve2" class="toggle-checkbox" name="status" value="valve2">
+                                {% endif %}
+                                <label for="valve2">Valve 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve3" %}
+                                    <input type="checkbox" id="valve3" class="toggle-checkbox" name="status" value="valve3" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve3" class="toggle-checkbox" name="status" value="valve3">
+                                {% endif %}
+                                <label for="valve3">Valve 3</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve4" %}
+                                    <input type="checkbox" id="valve4" class="toggle-checkbox" name="status" value="valve4" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve4" class="toggle-checkbox" name="status" value="valve4">
+                                {% endif %}
+                                <label for="valve4">Valve 4</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve5" %}
+                                    <input type="checkbox" id="valve5" class="toggle-checkbox" name="status" value="valve5" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve5" class="toggle-checkbox" name="status" value="valve5">
+                                {% endif %}
+                                <label for="valve5">Valve 5</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve6" %}
+                                    <input type="checkbox" id="valve6" class="toggle-checkbox" name="status" value="valve6" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve6" class="toggle-checkbox" name="status" value="valve6">
+                                {% endif %}
+                                <label for="valve6">Valve 6</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve7" %}
+                                    <input type="checkbox" id="valve7" class="toggle-checkbox" name="status" value="valve7" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve7" class="toggle-checkbox" name="status" value="valve7">
+                                {% endif %}
+                                <label for="valve7">Valve 7</label>
+                            </div>
+                            <div class="checkbox-item">
+                                {% if serializer.data|get_item:"valve8" %}
+                                    <input type="checkbox" id="valve8" class="toggle-checkbox" name="status" value="valve8" checked>
+                                {% else %}
+                                    <input type="checkbox" id="valve8" class="toggle-checkbox" name="status" value="valve8">
+                                {% endif %}
+                                <label for="valve8">Valve 8</label>
+                            </div>
+                        </div>
+                        <button class="btn">Read</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
